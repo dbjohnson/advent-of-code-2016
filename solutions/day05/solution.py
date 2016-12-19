@@ -22,7 +22,7 @@ def part1(length=8):
     return password
 
 
-#print('part 1:', part1())
+print('part 1:', part1())
 
 
 def part2(length=8):
