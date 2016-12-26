@@ -13,11 +13,8 @@ class Disc:
             for k, v in re.match(regexp, description).groupdict().items()
         })
 
-    def at_time(self, t):
-        return (self.pos_t0 + t) % self.positions
-
     def aligned(self, t):
-        return self.at_time(t) == 0
+        return (self.pos_t0 + t) % self.positions == 0
 
 
 def solve(discs):
