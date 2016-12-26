@@ -16,8 +16,7 @@ def hash_idx(idx, stretch=0):
     return hash(salt + str(idx), stretch)
 
 
-def idx_of_next_key(start_idx=0, stretch=0):
-    for idx in range(start_idx, 10 ** 999):
+def valid_pad(idx, stretch=0):
         m = re.search(r'(([a-z0-9])\2{2,})', hash_idx(idx, stretch))
         if m:
             five = m.group()[0] * 5
@@ -26,13 +25,14 @@ def idx_of_next_key(start_idx=0, stretch=0):
                     return idx
 
 
-def solve(n=64, stretch=0):
-    start_idx = 0
-    for i in range(n):
-        idx = idx_of_next_key(start_idx, stretch)
-        start_idx = idx + 1
-    return idx
+def nth_pad(n=64, stretch=0):
+    found = 0
+    for idx in range(10 ** 999):
+        if valid_pad(idx, stretch):
+            found += 1
+            if found == n:
+                return idx
 
 
-print('part 1:', solve())
-print('part 2:', solve(stretch=2016))
+print('part 1:', nth_pad())
+print('part 2:', nth_pad(stretch=2016))
