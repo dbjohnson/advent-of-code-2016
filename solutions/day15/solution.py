@@ -2,7 +2,6 @@ import re
 
 
 class Disc:
-
     def __init__(self, **kwargs):
         self.__dict__ = kwargs
 
