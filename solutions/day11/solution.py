@@ -1,3 +1,7 @@
+"""
+NOTE: See day 13 solution for a better A* implementation using named tuples
+(which can be hashed) rather than custom classes.  Thanks to Peter Norvig
+"""
 import re
 import itertools
 import heapq
@@ -66,7 +70,7 @@ class State:
         return self.str
 
 
-def solve(start):
+def astar(start):
     shortest_path_to_state = defaultdict(lambda: 10 ** 999)
     shortest_path_to_state[start] = 0
     frontier = []
@@ -98,10 +102,10 @@ with open('input.txt', 'r') as fh:
 
 start = State(objects, 0)
 
-print('part 1:', solve(start))
+print('part 1:', astar(start))
 
 for element in ('elerium', 'dilithium'):
     for kind in ('generator', 'microchip'):
         start.objects.append(Object(0, element, kind))
 
-print('part 2:', solve(start))
+print('part 2:', astar(start))
