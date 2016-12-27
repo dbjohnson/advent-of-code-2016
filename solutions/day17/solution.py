@@ -58,10 +58,6 @@ def astar(goal, start):
                 state_to_lowest_cost[child] = new_cost
                 heapq.heappush(frontier, (new_cost + h_func(child), child))
 
-start = ('', Position(0, 0))
-goal = Position(map_size - 1, map_size - 1)
-print('part 1:', astar(goal, start))
-
 
 def dfs(goal, start):
     frontier = [start]
@@ -77,4 +73,8 @@ def dfs(goal, start):
 
     return max_cost
 
+
+start = ('', Position(0, 0))
+goal = Position(map_size - 1, map_size - 1)
+print('part 1:', astar(goal, start))
 print('part 2:', dfs(goal, start))
