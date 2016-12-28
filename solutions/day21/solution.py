@@ -1,4 +1,5 @@
 import re
+from itertools import permutations
 
 
 def rotate(string, steps, direction):
@@ -10,7 +11,7 @@ def rotate(string, steps, direction):
     return string
 
 
-def apply_rule(password, rule, reverse=False):
+def apply_rule(password, rule):
     if rule.startswith('swap letter'):
         chars = ''.join(re.findall('letter ([a-z]{1})', rule))
         trans = str.maketrans(chars, ''.join(reversed(chars)))
@@ -43,17 +44,20 @@ def apply_rule(password, rule, reverse=False):
 with open('input.txt', 'r') as fh:
     rules = [line.strip() for line in fh]
 
-password = 'abcdefgh'
-for rule in rules:
-    password = apply_rule(password, rule.strip())
-    assert len(password) == 8, rule + " " + password
-    for char in 'abcdefgh':
-        assert char in password, rule + " " + password
 
-print('part 1:', password)
+def scramble(password):
+    for rule in rules:
+        password = apply_rule(password, rule.strip())
+        assert len(password) == 8, rule + " " + password
+        for char in 'abcdefgh':
+            assert char in password, rule + " " + password
+    return password
+
+print('part 1:', scramble('abcdefgh'))
 
 
 scrambled = 'fbgdceah'
-for rule in reversed(rules):
-    scrambled = apply_rule(scrambled, reverse=True)
-
+for p in permutations('abcdefgh'):
+    if scramble(''.join(p)) == scrambled:
+        print('part 2:', ''.join(p))
+        break
