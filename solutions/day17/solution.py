@@ -52,7 +52,7 @@ def astar(goal, start):
         if pos == goal:
             return path
 
-        new_cost = cost + 1
+        new_cost = state_to_lowest_cost[state] + 1
         for child in move_func(state):
             if new_cost < state_to_lowest_cost.get(child, 10 ** 999):
                 state_to_lowest_cost[child] = new_cost
