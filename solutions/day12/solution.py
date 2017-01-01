@@ -18,15 +18,16 @@ def solve(registers, instructions):
     i = 0
     while 0 <= i < len(instructions):
         inst = instructions[i]
-        i += 1
-        if inst['inst'] == 'cpy':
-            registers[inst['tgt']] = _value(inst['src'])
         if inst['inst'] == 'jnz' and _value(inst['src']):
-                i += int(inst['tgt']) - 1
-        if inst['inst'] == 'inc':
-            registers[inst['src']] += 1
-        if inst['inst'] == 'dec':
-            registers[inst['src']] -= 1
+            i += _value(inst['tgt'])
+        else:
+            i += 1
+            if inst['inst'] == 'cpy':
+                registers[inst['tgt']] = _value(inst['src'])
+            if inst['inst'] == 'inc':
+                registers[inst['src']] += 1
+            if inst['inst'] == 'dec':
+                registers[inst['src']] -= 1
 
 
 registers = dict(a=0, b=0, c=0, d=0)
